@@ -72,7 +72,7 @@ int main(void)
 	    exit(1);
 	}
 	fread(data, 1, 50, fd);
-	get_data(data);
+	data_get(data);
 	if(activ)
 	{
 	    release_door();
