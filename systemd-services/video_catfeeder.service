@@ -1,0 +1,10 @@
+[Unit]
+Description=Video streaming cat feeder
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/fswebcam -l 1 -d /dev/video0 /var/www/pic/webcam.jpg --background
+ExecStopPost=/bin/rm /var/www/pis/webcam.jpg
+RemainAfterExit=true
+User=pi
+CapabilityBoundingSet=CAP_SETPCAP CAP_DAC_OVERRIDE CAP_CHOWN CAP_SYS_ADMIN CAP_FOWNER

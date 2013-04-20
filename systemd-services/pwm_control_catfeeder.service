@@ -1,0 +1,18 @@
+[Unit]
+Description=PWM control cat feeder
+Requires=init-catfeeder.service 
+After=init-catfeeder.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/pwm-control
+RemainAfterExit=true
+StandardOutput=syslog
+StandardError=syslog
+User=root
+Group=root
+#CapabilityBoundingSet=CAP_SETPCAP CAP_DAC_OVERRIDE CAP_CHOWN CAP_SYS_ADMIN CAP_FOWNER
+
+[Install]
+WantedBy=multi-user.target
+

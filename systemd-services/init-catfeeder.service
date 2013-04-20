@@ -1,0 +1,12 @@
+[Unit]
+Description=Cat Feeder Service file
+Requires=apache2.service
+After=apache2.service
+
+[Service]
+Type=simple
+ExecStart=/bin/sh /var/www/sh/init-catfeeder.sh
+RemainAfterExit=true
+
+[WantedBy]
+multi-user.target.wants
