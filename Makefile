@@ -1,6 +1,9 @@
-CFLAGS=-Wall -g
+CC=gcc
+CFLAGS=-Wall
+LIBS=-lwiringPi
 
-pwm-control: pwm-control.c
-	gcc $(CFLAGS) -o pwm-control pwm-control.c
+pwm-control: pwm-control.o
+	$(CC) $(CFLAGS) $(LIBS) -o pwm-control pwm-control.c
+
 clean:
-	rm pwm-control
+	rm -f *o pwm-control
