@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>Cat Feeder | Index</title>
+<link rel="stylesheet" type="text/css" href="design/grafic.css" />
 <script type="text/javascript">
 	function verifica(){		
 		if ( document.getElementById('pass').value == '' ){
@@ -18,13 +19,15 @@
 
 <body onload="focusCursor()">
 
-<table width="500" align="center" border="1" cellspacing="0">
+<div id="cont">
+<table width="500" align="center" border="0" cellspacing="0">
 <form method="post" action="./intel/logic.php?act=login">
 	<tr>
-		<td><h2>Cat Feeder | Login</h2></td>
+		<td><h2>Cat Feeder | Login </h2></td>
 	</tr>
 	<tr>
 		<td><h3>Introdu parola:</h3></td>
+		<td rowspan="3"><div style="margin-left:30px;"><img src="design/img/rpi.jpg" width="200" /></div></td>
 	</tr>
 
 	<tr>
@@ -35,8 +38,10 @@
 	</tr>
 </form>
 </table>
-
-<?php include ('intel/pinfo.php'); ?>
+</div>
+<center>
+	&copy; Web enabled cat feeder Raspberry Pi, hackathon
+</center>
 
 </body>
 </html>

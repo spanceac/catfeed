@@ -1,20 +1,22 @@
 #!/bin/sh
 
 setariweb='/dev/shm/setariweb'
-log='/var/log/log_catfeeder'
+log='/var/www/log/log_catfeeder'
 doConfig(){
 	touch $setariweb
 	chmod 777 $setariweb
-	echo "Activ=0\nCantitate=0\n" > $setariweb
+	echo "Activ=0\nCantitate=0\nIluminare=0" > $setariweb
 	return 0
 }
 doLog(){
 	if [ -f $log ]; then
 		rm $log
 		touch $log
+		chmod 777 $log
 		return 0
 	else
 		touch $log
+		chmod 777 $log
 		return 0
 	fi
 }

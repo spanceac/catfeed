@@ -55,15 +55,16 @@ void release_door(void)
 int cutie_plina(void)
 {
     int state;
-    digitalWrite(1, HIGH); //aprinde led test
+    digitalWrite(14, HIGH); //aprinde led test
     usleep(100000);
     state = digitalRead(17); //read LDR
-    digitalWrite(1, LOW); //stinge led test
+//    digitalWrite(14, LOW); //stinge led test
     if(state)
 	return 1; //cutie plina
     else
 	return 0; //cutie goala --> action
 }
+/* to be developed
 void softPWM(int val)
 {
     digitalWrite(14, HIGH);
@@ -71,28 +72,18 @@ void softPWM(int val)
     digitalWrite(14, LOW);
     usleep(10000);
 }
-
+*/
 int main(void)
 {
-    sleep(5);
     init_PWM();
     pinMode(17, INPUT); //LDR detectie cutie goala
-    pinMode(1, OUTPUT); //LED detectie cutie goala
-    pinMode(14, OUTPUT); //soft PWM
-    pinMode(15, OUTPUT); //PIN light
+    pinMode(14, OUTPUT); //LED detectie cutie goala
+//    pinMode(14, OUTPUT); //soft PWM
+    pinMode(15, OUTPUT); //PIN activare iluminare
     digitalWrite(15, LOW); //lights off
     FILE *fd, *fd2;
     char *data;
-/*
-    while(1)
-    {
-	if(cutie_plina())
-	    printf("Cutia e plina\n");
-	else
-	    printf("Cutia e goala\n");
-	usleep(500000);
-    }
-*/
+
     while(1)
     {
 	data = malloc(50);
@@ -110,9 +101,9 @@ int main(void)
 	    exit(1);
 	}
 	if(cutie_plina())
-	    fputs("Cutia=1",fd2);
+	    fputs("1",fd2);
 	else
-	    fputs("Cutia=0",fd2);
+	    fputs("0",fd2);
 	fclose(fd2);
 
 	data_get(data);
@@ -127,7 +118,7 @@ int main(void)
 	}
 	else
 	{
-	    usleep(100000); //sleep to avoid massive cpu usage
+	    usleep(500000); //sleep to avoid massive cpu usage
 	}
 	fclose(fd);
 	free(data);

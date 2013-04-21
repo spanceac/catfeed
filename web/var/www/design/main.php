@@ -24,6 +24,13 @@ if ( isset($ses) && $ses == 1 ){
 		window.setTimeout($('#info2').empty(),10500);
 		return true;
 	}
+	function elapsed(){
+		/* Apelam la interval de 10 sec */
+		setInterval(function(){ $('#elapsed').load('../intel/logic.php?act=elapsedTime'); }, 5000);
+	}
+	function cantitateCutie(){
+		setInterval(function(){ $('#cutie').load('../intel/logic.php?act=cutieGoala'); }, 1000);
+	}
 	function videoStream(videoFlag){
 	var stream = 0;
 		if ( videoFlag == 0 ){			
@@ -38,36 +45,46 @@ if ( isset($ses) && $ses == 1 ){
 		if ( videoFlag == 1 ){
 			stream=window.clearInterval(stream);
 			$('#streamingVideo').load('../intel/logic.php?act=stopStreamVideo');			
-			$('#streamingVideo').html('<img src="../design/img/no.png" width="360" />');
+			$('#streamingVideo').html('<img src="../design/img/no.jpg" width="360" />');
 			//$('#butonVideo').removeAttr('disabled');			
 			window.location.reload(true);
 			$("#butonDeactivareVideo").attr("disabled", "disabled");
 			return false;
 		}		
 	}	
+function activareLumina(){
+	$('#infoLumina').load('../intel/logic.php?act=iluminare&on=1');	
+	/* Dupa cateva secunde stingem lumina */
+	window.setTimeout(function(){$('#infoLumina').load('../intel/logic.php?act=iluminare&on=0')},10000);
+
+}
 	function ora(){					
-		setInterval(function(){
+/*		setInterval(function(){
 			var time=new Date();
 			var o= time.getHours();
 			var m= time.getMinutes();
 			var oracurenta = o+':'+m;
 			$('#timeInfo').html(oracurenta); },1000);
+			*/
+			setInterval(function(){ $('#timeInfo').load('../intel/logic.php?act=oraCurenta'); },1000);
 			return true;
 	}
 </script>
 </head>
 
-<body onload="ora(); Response.Cache.SetNoStore();">
+<body onload="ora(); elapsed(); cantitateCutie(); Response.Cache.SetNoStore();">
 <div id="tot">
 <table width="600" align="center" border="0" cellspacing="2">
 	<tr>
-		<td colspan="2">
+		<td>
 			<div> Ora curenta: 
 				<div id="timeInfo"></div>
 			</div>
 		</td>
+		<td>
+			<div id="elapsed"></div>
+		</td>		
 	</tr>
-<div id="opt1">
 	<tr>
 		<td><h2>Da drumu' la mancare</h2></td>
 		<td><h2>Cam cat vrei sa dai ?</h2></td>
@@ -77,6 +94,7 @@ if ( isset($ses) && $ses == 1 ){
 	</tr>
 	<tr>
 		<td>
+			<div id="cutie"></div>
 			<input type="button" name="activeaza" id="butonActivare" value="Activare" onclick="activare()" />
 			<div id="info2"></div>
 		</td>
@@ -88,7 +106,13 @@ if ( isset($ses) && $ses == 1 ){
 			</select>
 		</td>
 	</tr>
-</div>
+	<tr>
+		<td colspan="2">
+			<input type="button" name="lumina" id="butonLumina" value="Activare lumina" onclick="activareLumina()" />
+			<div id="infoLumina"></div>
+		</td>		
+	</tr>
+
 	<tr>
 		<td>
 			<h2>Video streaming</h2>
@@ -96,15 +120,8 @@ if ( isset($ses) && $ses == 1 ){
 			<input type="button" name="stopVideo" id="butonDeactivareVideo" value="Dezactivare Streaming Video" onclick="videoStream(1)" />
 		</td>
 		<td>			
-			<div id="streamingVideo" style="width:355px; height:350px;">
-				<?php
-					/*if (!file_exists("../pic/webcam.jpg"))
-						echo '<img src="../design/img/no.png" width="350" />';
-					else
-						echo '<img src="../pic/webcam.jpg" width="350" />';
-						*/
-				?>
-				<img src="../design/img/no.png" width="360" />
+			<div id="streamingVideo" style="width:355px; height:350px;">				
+				<img src="../design/img/no.jpg" width="360" />
 			</div>
 		</td>
 	</tr>
@@ -117,7 +134,7 @@ if ( isset($ses) && $ses == 1 ){
 </table>
 </div>
 <center>
-<?php include ('../intel/pinfo.php'); ?>
+	&copy; Web enabled cat feeder Raspberry Pi, hackathon
 </center>
 </body>
 </html>
